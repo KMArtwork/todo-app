@@ -2,10 +2,12 @@ import React from 'react';
 
 import Todo from './Components/Todo';
 
-export default class App extends React.Component {
-  render() {
+function App () {
+  
     return (
       <Todo />
     );
-  }
+  
 }
+
+export default App;

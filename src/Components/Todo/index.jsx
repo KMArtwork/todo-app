@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useForm from '../../Context/hooks/form';
+import Header from '../Header';
+import Footer from '../Footer';
 
 import { v4 as uuid } from 'uuid';
 
@@ -48,9 +50,7 @@ const Todo = () => {
 
   return (
     <>
-      <header data-testid="todo-header">
-        <h1 data-testid="todo-h1">To Do List: {incomplete} items pending</h1>
-      </header>
+      <Header data-testid="todo-header" incomplete={incomplete} />
 
       <form onSubmit={handleSubmit}>
 
@@ -85,6 +85,8 @@ const Todo = () => {
           <hr />
         </div>
       ))}
+
+      <Footer />
 
     </>
   );
