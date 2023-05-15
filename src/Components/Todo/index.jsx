@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import useForm from '../../Context/hooks/form';
 import Header from '../Header';
 import Footer from '../Footer';
+import List from '../List';
 
 import { v4 as uuid } from 'uuid';
 
@@ -76,15 +77,7 @@ const Todo = () => {
         </label>
       </form>
 
-      {list.map(item => (
-        <div key={item.id}>
-          <p>{item.text}</p>
-          <p><small>Assigned to: {item.assignee}</small></p>
-          <p><small>Difficulty: {item.difficulty}</small></p>
-          <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-          <hr />
-        </div>
-      ))}
+      <List data={list} toggleComplete={toggleComplete} />
 
       <Footer />
 
