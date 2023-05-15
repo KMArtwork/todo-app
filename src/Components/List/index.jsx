@@ -1,10 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { SettingsContext } from "../../Context/Settings";
 
 function List (props) {
 
   const settings = useContext(SettingsContext);
+
+  useEffect(() => {
+    props.data.sort((a, b) => {
+      if (a[settings.sortBy] < b[settings.sortBy]){
+        return -1;
+      }
+      else if (a[settings.sortBy] > b[settings.sortBy]){
+        return 1;
+      }
+      else return 0;
+    })
+  }, [props.data])
 
   return(
     // if 'hideCompleted' is true, only show pending tasks. if 'hideCompleted' is false, show all tasks
