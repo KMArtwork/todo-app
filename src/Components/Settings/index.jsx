@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { Switch, NativeSelect, NumberInput } from '@mantine/core';
 import { SettingsContext } from "../../Context/Settings";
