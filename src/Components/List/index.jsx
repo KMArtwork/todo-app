@@ -1,106 +1,75 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { SettingsContext } from "../../Context/Settings";
-import { Container, MantineProvider } from "@mantine/core";
-import { Pagination, Group } from '@mantine/core';
+import { Pagination } from '@mantine/core';
 
-import Header from "../Header";
 
 function List (props) {
   const settings = useContext(SettingsContext);
   const [activePage, setActivePage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [taskList, setTaskList] = useState([]);
+  const [start, setStart] = useState(settings.itemsPerPage * (activePage - 1));
+  const [end, setEnd] = useState(start + settings.itemsPerPage);
 
-  const renderedList = settings.hideCompleted ? props.data : props.data.filter(item => !item.complete)
-
-  const itemsPerPage = settings.itemsPerPage;
-  let listStart = itemsPerPage * (activePage - 1);
-  let listEnd = listStart + itemsPerPage;
-  const displayedList = renderedList ? renderedList.slice(listStart, listEnd) : [];
-  
-
-
-
-  let shownTasks = [];
-
+  // updates start index for displayed tasks from taskList
   useEffect(() => {
-    shownTasks = [];
+    setStart(settings.itemsPerPage * (activePage - 1))
+  }, [activePage, settings.itemsPerPage])
 
-    if (activePage === 1){
-      for(let i = 0; i < settings.itemsPerPage; i++){
-        if(props.data[i]){
-          shownTasks.push(props.data[i]);        
-        }
+  // updates end index for displayed tasks from taskList
+  useEffect(() => {
+    setEnd(start + settings.itemsPerPage)
+  }, [start, settings.itemsPerPage])
+
+  // sorts tasks by property
+  useEffect(() => {
+    props.data.sort((a, b) => {
+      if (a[settings.sortBy] < b[settings.sortBy]){
+        return -1;
       }
-    }
-    else {
-      for(
-        let i = settings.itemsPerPage * (activePage - 1); 
-        i < (settings.itemsPerPage * activePage);
-        i++
-        ) {
-          if(props.data[i]){
-            shownTasks.push(props.data[i]);
-          }
-        }
-    }
+      else if (a[settings.sortBy] > b[settings.sortBy]){
+        return 1;
+      }
+      else return 0;
+    })
+  }, [props.data, settings.sortBy])
 
-    console.log(shownTasks);
-  }, [activePage])
+  // shows tasks based on if hideCompleted is true or false
+  useEffect(() => {
+    settings.hideCompleted ? 
+    setTaskList(
+      props.data.filter(item => !item.complete).slice(start, end)
+    )
+    : 
+    setTaskList(
+      props.data.slice(start, end)
+    );
+  }, [settings.hideCompleted, props.data, start, end])
 
-  // useEffect(() => {
-  //   props.data.sort((a, b) => {
-  //     if (a[settings.sortBy] < b[settings.sortBy]){
-  //       return -1;
-  //     }
-  //     else if (a[settings.sortBy] > b[settings.sortBy]){
-  //       return 1;
-  //     }
-  //     else return 0;
-  //   })
-  // }, [props.data])
+  // determines total amount of pages for <Pagination /> component
+  useEffect(() => {
+    settings.hideCompleted ? 
+    setTotalPages(Math.ceil((props.data.filter(item => !item.complete).length) / settings.itemsPerPage)) 
+    : 
+    setTotalPages(Math.ceil(props.data.length / settings.itemsPerPage))
+  }, [props.data, settings.hideCompleted, settings.itemsPerPage])
+
 
   return(
-    // if 'hideCompleted' is true, only show pending tasks. if 'hideCompleted' is false, show all tasks
-    // settings.hideCompleted ?
+    
     <>
-    {displayedList.map(item => {
-      return <div key={item.id}>
-        <p>{item.text}</p>
-        <p><small>Assigned to: {item.assignee}</small></p>
-        <p><small>Difficulty: {item.difficulty}</small></p>
-        <div onClick={() => props.toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-        <hr />
-      </div>
-    })}
-    <Pagination value={activePage} onChange={setActivePage} total={5} />
+      {taskList.map(item => {
+        return <div key={item.id}>
+          <p>{item.text}</p>
+          <p><small>Assigned to: {item.assignee}</small></p>
+          <p><small>Difficulty: {item.difficulty}</small></p>
+          <div onClick={() => props.toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
+          <button onClick={() => props.deleteItem(item.id)} >Remove</button>
+        </div>
+      })}
+      <Pagination value={activePage} onChange={setActivePage} total={totalPages} />
     </>
-    // <Container>
-    //   <MantineProvider>
-
-    //   {/* {props.data.map(item => {
-    //     if(!item.complete){
-    //       return <Container key={item.id}>
-    //         <p>{item.text}</p>
-    //         <p><small>Assigned to: {item.assignee}</small></p>
-    //         <p><small>Difficulty: {item.difficulty}</small></p>
-    //         <Container onClick={() => props.toggleComplete(item.id)}>Complete: {item.complete.toString()}</Container>
-    //         <hr />
-    //       </Container>        
-    //     }
-    //   })} */}
-
-    //   </MantineProvider>    
-    // </Container>
-    // :
-    // props.data.map(item => (
-    //   <div key={item.id}>
-    //     <p>{item.text}</p>
-    //     <p><small>Assigned to: {item.assignee}</small></p>
-    //     <p><small>Difficulty: {item.difficulty}</small></p>
-    //     <div onClick={() => props.toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-    //     <hr />
-    //   </div>
-    // ))
   )
 
 

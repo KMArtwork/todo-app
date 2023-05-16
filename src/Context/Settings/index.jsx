@@ -9,7 +9,7 @@ function SettingsProvider (props) {
   const [sortBy, setSortBy] = useState('difficulty');
 
   return (
-    <SettingsContext.Provider value={{itemsPerPage, hideCompleted, sortBy}}>
+    <SettingsContext.Provider value={{itemsPerPage, setItemsPerPage, hideCompleted, setHideCompleted, sortBy, setSortBy}}>
       {props.children}
     </SettingsContext.Provider>    
   )

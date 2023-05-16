@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState} from 'react';
 import useForm from '../../Context/hooks/form';
 import Header from '../Header';
 import Footer from '../Footer';
 import List from '../List';
 
 import { v4 as uuid } from 'uuid';
-import { Pagination } from '@mantine/core';
 
 const Todo = () => {
 
@@ -79,7 +78,7 @@ const Todo = () => {
         </label>
       </form>
 
-      <List data={list} toggleComplete={toggleComplete} />
+      <List data={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
 
       <Footer />
 
