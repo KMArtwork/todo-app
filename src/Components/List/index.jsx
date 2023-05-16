@@ -12,6 +12,8 @@ function List (props) {
   const [start, setStart] = useState(settings.itemsPerPage * (activePage - 1));
   const [end, setEnd] = useState(start + settings.itemsPerPage);
 
+  // console.log(props.data)
+
   // updates start index for displayed tasks from taskList
   useEffect(() => {
     setStart(settings.itemsPerPage * (activePage - 1))
