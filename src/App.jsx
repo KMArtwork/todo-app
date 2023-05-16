@@ -7,7 +7,7 @@ import Todo from './Components/Todo';
 function App () {
   
     return (
-      <MantineProvider theme={{colorScheme: 'dark'}}>
+      <MantineProvider>
         <SettingsProvider>
           <Todo />
         </SettingsProvider>        
