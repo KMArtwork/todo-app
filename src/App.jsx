@@ -1,4 +1,5 @@
 import React from 'react';
+import { MantineProvider } from '@mantine/core';
 
 import SettingsProvider from './Context/Settings';
 import Todo from './Components/Todo';
@@ -6,9 +7,11 @@ import Todo from './Components/Todo';
 function App () {
   
     return (
-      <SettingsProvider>
-        <Todo />
-      </SettingsProvider>
+      <MantineProvider theme={{colorScheme: 'dark'}}>
+        <SettingsProvider>
+          <Todo />
+        </SettingsProvider>        
+      </MantineProvider>
     );
   
 }

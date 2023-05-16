@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import useForm from '../../Context/hooks/form';
 import Header from '../Header';
 import Footer from '../Footer';
 import List from '../List';
 
 import { v4 as uuid } from 'uuid';
+import { Pagination } from '@mantine/core';
 
 const Todo = () => {
 
-  const [defaultValues] = useState({
-    difficulty: 4,
-  });
+
+  const [defaultValues] = useState({difficulty: 4});
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
+
+
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
   function addItem(item) {
