@@ -5,6 +5,8 @@ import Footer from '../Footer';
 import List from '../List';
 
 import { v4 as uuid } from 'uuid';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SettingsPage from '../Settings';
 
 const Todo = () => {
 
@@ -52,34 +54,41 @@ const Todo = () => {
 
   return (
     <>
-      <Header data-testid="todo-header" incomplete={incomplete} />
+      <Header data-testid="todo-header"/>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/settings' element={<SettingsPage />} />
+          <Route path='/tasks' element={
+            <>
+              <form onSubmit={handleSubmit}>
 
-      <form onSubmit={handleSubmit}>
+              <h2>Add To Do Item</h2>
+              <h4>To Do List: {incomplete} items pending</h4>
+              <label>
+                <span>To Do Item</span>
+                <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
+              </label>
 
-        <h2>Add To Do Item</h2>
+              <label>
+                <span>Assigned To</span>
+                <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
+              </label>
 
-        <label>
-          <span>To Do Item</span>
-          <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-        </label>
+              <label>
+                <span>Difficulty</span>
+                <input onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty" />
+              </label>
 
-        <label>
-          <span>Assigned To</span>
-          <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-        </label>
+              <label>
+                <button type="submit">Add Item</button>
+              </label>
+              </form>
 
-        <label>
-          <span>Difficulty</span>
-          <input onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty" />
-        </label>
-
-        <label>
-          <button type="submit">Add Item</button>
-        </label>
-      </form>
-
-      <List data={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
-
+              <List data={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
+            </>
+          } />
+        </Routes>
+      </BrowserRouter>
       <Footer />
 
     </>
