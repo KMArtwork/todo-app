@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { SettingsContext } from "../../Context/Settings";
 import { Pagination, Container } from '@mantine/core';
-import ListItem from "./ListItem.jsx";
+import ListItem from "../ListItem";
 
 
 function List (props) {
