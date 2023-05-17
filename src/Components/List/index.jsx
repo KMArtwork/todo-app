@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { SettingsContext } from "../../Context/Settings";
 import { Pagination, Container } from '@mantine/core';
 import ListItem from "../ListItem";
+import Auth from "../Auth/auth";
 
 
 function List (props) {
@@ -60,13 +61,15 @@ function List (props) {
 
 
   return(
-    
-    <Container style={{minWidth: '65%'}}>
-      {taskList.map(item => {
-        return <ListItem item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
-      })}
-      <Pagination value={activePage} onChange={setActivePage} total={totalPages} />
-    </Container>
+    <Auth capability='read'>
+      <Container style={{minWidth: '65%'}}>
+        {taskList.map(item => {
+          return <ListItem item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
+        })}
+        <Pagination value={activePage} onChange={setActivePage} total={totalPages} />
+      </Container>      
+    </Auth>
+
   )
 
 

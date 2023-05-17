@@ -1,16 +1,16 @@
 import React from "react";
 import Login from "../Auth/login";
 
-import { NavLink, Group } from "@mantine/core";
+import { Anchor, Group } from "@mantine/core";
 
 function Header (props) {
 
   return (
-    <header data-testid="todo-header" style={{backgroundColor: 'blue', color: 'red', padding: '2rem 1rem', display: 'flex', justifyContent: 'flex-start'}}>
-      <Group>
+    <header data-testid="todo-header" style={{backgroundColor: 'cyan', color: 'red', padding: '2rem 1rem'}}>
+      <Group position="apart">
         <Group>
-          <NavLink label='Home' component="a" href="/" />
-          <NavLink label='Settings' component="a" href="/settings" />          
+          <Anchor  href="/">Home</Anchor>
+          <Anchor  href="/settings">Settings</Anchor>       
         </Group>
         <Login />
       </Group>

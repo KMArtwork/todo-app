@@ -7,7 +7,8 @@ import List from '../List';
 import { v4 as uuid } from 'uuid';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SettingsPage from '../Settings';
-import ItemForm from '../Form';
+import ItemForm from '../ItemForm';
+import Auth from '../Auth/auth'
 
 import { Group, Container, Title } from '@mantine/core';
 
@@ -58,25 +59,27 @@ const Todo = () => {
   return (
     <>
       <Header data-testid="todo-header"/>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/settings' element={<SettingsPage />} />
-          <Route path='/' element={
-            <>
-              <Container style={{backgroundColor: "#343a40", color: 'white', padding: '2rem'}}>
-                <Title order={2} align='center'>
-                  To Do List: {incomplete} items pending
-                </Title>
-              </Container>
-              <Group position='apart' grow style={{margin: '2rem 5rem' }}>
-                <ItemForm handleSubmit={handleSubmit} handleChange={handleChange} incomplete={incomplete} />
+      <Auth>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/settings' element={<SettingsPage />} />
+            <Route path='/' element={
+              <>
+                <Container style={{backgroundColor: "#343a40", color: 'white', padding: '2rem'}}>
+                  <Title order={2} align='center'>
+                    To Do List: {incomplete} items pending
+                  </Title>
+                </Container>
+                <Group position='apart' grow style={{margin: '2rem 5rem' }}>
+                  <ItemForm handleSubmit={handleSubmit} handleChange={handleChange} incomplete={incomplete} />
 
-                <List data={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
-              </Group>
-            </>
-          } />
-        </Routes>
-      </BrowserRouter>
+                  <List data={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
+                </Group>
+              </>
+            } />
+          </Routes>
+        </BrowserRouter>
+      </Auth>
       <Footer />
 
     </>

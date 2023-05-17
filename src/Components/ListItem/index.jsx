@@ -1,4 +1,5 @@
 import React from "react";
+import Auth from "../Auth/auth";
 
 import { Card, Text, Badge, Button, Group, CardSection, Container } from '@mantine/core';
 
@@ -17,8 +18,9 @@ function ListItem (props) {
               }
               <Text fw={500}>{props.item.assignee}</Text>            
             </Group>
-
-            <Button color="red" size='xs' onClick={() => props.deleteItem(props.item.id)}>X</Button>
+            <Auth capability='delete'>
+              <Button color="red" size='xs' onClick={() => props.deleteItem(props.item.id)}>X</Button>              
+            </Auth>
           </Group>
       </Card.Section>
 
@@ -31,7 +33,9 @@ function ListItem (props) {
       </Card.Section>
       <CardSection>
         <Group position='right' >
-          <Button onClick={() => props.toggleComplete(props.item.id)}>Complete</Button>          
+          <Auth capability='update'>
+            <Button onClick={() => props.toggleComplete(props.item.id)}>Complete</Button>             
+          </Auth>
         </Group>
       </CardSection>
     </Card>
