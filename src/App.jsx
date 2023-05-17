@@ -1,11 +1,19 @@
 import React from 'react';
+import { MantineProvider } from '@mantine/core';
 
+import SettingsProvider from './Context/Settings';
 import Todo from './Components/Todo';
 
-export default class App extends React.Component {
-  render() {
+function App () {
+  
     return (
-      <Todo />
+      <MantineProvider>
+        <SettingsProvider>
+          <Todo />
+        </SettingsProvider>        
+      </MantineProvider>
     );
-  }
+  
 }
+
+export default App;
