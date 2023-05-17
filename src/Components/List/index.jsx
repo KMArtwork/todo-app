@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { SettingsContext } from "../../Context/Settings";
 import { Pagination } from '@mantine/core';
+import ListItem from "./listItem";
 
 
 function List (props) {
@@ -62,13 +63,14 @@ function List (props) {
     
     <>
       {taskList.map(item => {
-        return <div key={item.id}>
-          <p>{item.text}</p>
-          <p><small>Assigned to: {item.assignee}</small></p>
-          <p><small>Difficulty: {item.difficulty}</small></p>
-          <div onClick={() => props.toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-          <button onClick={() => props.deleteItem(item.id)} >Remove</button>
-        </div>
+        // return <div key={item.id}>
+        //   <p>{item.text}</p>
+        //   <p><small>Assigned to: {item.assignee}</small></p>
+        //   <p><small>Difficulty: {item.difficulty}</small></p>
+        //   <div onClick={() => props.toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
+        //   <button onClick={() => props.deleteItem(item.id)} >Remove</button>
+        // </div>
+        return <ListItem item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
       })}
       <Pagination value={activePage} onChange={setActivePage} total={totalPages} />
     </>
