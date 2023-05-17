@@ -7,7 +7,7 @@ import List from '../List';
 import { v4 as uuid } from 'uuid';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SettingsPage from '../Settings';
-import AddItemForm from './addItemForm';
+import AddItemForm from './AddItemForm';
 
 import { Group, Container, Title } from '@mantine/core';
 
