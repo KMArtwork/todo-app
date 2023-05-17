@@ -7,7 +7,7 @@ import List from '../List';
 import { v4 as uuid } from 'uuid';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SettingsPage from '../Settings';
-import AddItemForm from './AddItemForm';
+import ItemForm from '../Form';
 
 import { Group, Container, Title } from '@mantine/core';
 
@@ -69,7 +69,7 @@ const Todo = () => {
                 </Title>
               </Container>
               <Group position='apart' grow style={{margin: '2rem 5rem' }}>
-                <AddItemForm handleSubmit={handleSubmit} handleChange={handleChange} incomplete={incomplete} />
+                <ItemForm handleSubmit={handleSubmit} handleChange={handleChange} incomplete={incomplete} />
 
                 <List data={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
               </Group>
