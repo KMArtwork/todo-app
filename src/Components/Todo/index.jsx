@@ -43,7 +43,7 @@ const Todo = () => {
   }
 
   function deleteItem(id) {
-    const items = list.filter( item => item.id !== id );
+    const items = list.filter( item => item._id !== id );
     setList(items);
 
     axios
@@ -58,14 +58,27 @@ const Todo = () => {
 
   function toggleComplete(id) {
 
+    let toggledItem;
+    console.log(list)
+
     const items = list.map( item => {
-      if ( item.id === id ) {
+      if ( item._id === id ) {
         item.complete = ! item.complete;
       }
+      toggledItem = item;
       return item;
     });
-
+    console.log(toggledItem)
     setList(items);
+
+    axios
+      .put(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo/${id}`, toggledItem)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
 
   }
 
