@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 import { SettingsContext } from "../../Context/Settings";
 import { Pagination, Container } from '@mantine/core';
@@ -57,6 +58,15 @@ function List (props) {
     : 
     setTotalPages(Math.ceil(props.data?.length / settings.itemsPerPage))
   }, [props.data, settings.hideCompleted, settings.itemsPerPage])
+
+  // componentDidMount - fetches tasks from server / database when List component mounts
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`)
+      .then(response => {
+        setTaskList(response.data.results)
+      })
+  }, [])
 
 
   return(
