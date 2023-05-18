@@ -2,8 +2,10 @@
 
 import SettingsProvider from "../Context/Settings";
 import AuthProvider from "../Components/Auth/context";
+import { AuthContext } from "../Components/Auth/context";
+import Auth from "../Components/Auth/auth";
 import SettingsPage from "../Components/Settings";
-import List from "../Components/List";
+import Todo from "../Components/Todo";
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
@@ -33,18 +35,29 @@ describe('Testing App integration and context behavior', () => {
 
   })
 
-  // still figuring this one out
-  xtest('Settings context is being passed into the List component', () => {
+  test('Auth context is will correctly render <Todo /> component when loggedin', () => {
     render(
-      <AuthProvider value={{isLoggedIn: true}}>
+      <AuthContext.Provider value={{isLoggedIn: true, can: jest.fn()}}>
         <SettingsProvider value={values}>
-          <List data={[{id:'test', assignee: 'me', complete: false, text: 'testtext', difficulty: 5}]}/>
+          <Todo  />
         </SettingsProvider>        
-      </AuthProvider>
+      </AuthContext.Provider>
       );
 
-    let listEl = screen.getByTestId('listItems')
+    let listEl = screen.queryByTestId('todoContainer')
     expect(listEl).toBeVisible();
+  })
+
+  test('Auth context is will correctly render <Todo /> component when logged out', () => {
+    render(
+      <AuthContext.Provider value={{isLoggedIn: false, can: jest.fn()}}>
+        <SettingsProvider value={values}>
+          <Todo  />
+        </SettingsProvider>        
+      </AuthContext.Provider>
+      );
+
+    expect(screen.queryByTestId('todoContainer')).toBeFalsy();
   })
 
 

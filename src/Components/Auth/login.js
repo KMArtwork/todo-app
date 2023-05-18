@@ -32,7 +32,7 @@ function Login (props) {
             name="password"
             onChange={(event) => setPassword(event.target.value)}
           />
-          <button data-testid='loginButton' >Login</button>
+          <button data-testid='loginButton'>Login</button>
         </form>
       </When>
     </>

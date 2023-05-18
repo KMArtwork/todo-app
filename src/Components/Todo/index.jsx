@@ -65,7 +65,7 @@ const Todo = () => {
             <Route path='/settings' element={<SettingsPage />} />
             <Route path='/' element={
               <>
-                <Container style={{backgroundColor: "#343a40", color: 'white', padding: '2rem'}}>
+                <Container data-testid='todoContainer' style={{backgroundColor: "#343a40", color: 'white', padding: '2rem'}}>
                   <Title order={2} align='center'>
                     To Do List: {incomplete} items pending
                   </Title>
