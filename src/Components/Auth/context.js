@@ -1,6 +1,7 @@
 import React from 'react';
 import cookie from 'react-cookies';
 import jwt_decode from 'jwt-decode';
+import axios from 'axios';
 
 const testUsers = {
   Administrator: {
@@ -59,15 +60,33 @@ function AuthProvider (props) {
   }
 
   const login = async (username, password) => {
-    let foundUser = testUsers[username];
-    if (foundUser && foundUser.password === password) {
-      try {
-        validateToken(foundUser.token);
-      } catch (e) {
-        setLoginState(isLoggedIn, token, user, e);
-        console.error(e);
+
+    let credentials = {
+      auth: {
+        username,
+        password        
       }
     }
+
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/signin`, {}, credentials)
+      .then(response => {
+        validateToken(response.data.token)
+      })
+      .catch(error => {
+        setLoginState(isLoggedIn, token, user, error);
+        console.error(error);
+      })
+
+    // let foundUser = testUsers[username];
+    // if (foundUser && foundUser.password === password) {
+    //   try {
+    //     validateToken(foundUser.token);
+    //   } catch (e) {
+    //     setLoginState(isLoggedIn, token, user, e);
+    //     console.error(e);
+    //   }
+    // }
   }
 
   const logout = () => {
