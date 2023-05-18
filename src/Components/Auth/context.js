@@ -80,6 +80,7 @@ function AuthProvider (props) {
     const cookieToken = cookie.load('auth');
     const token = qs.get('token') || cookieToken || null;
     validateToken(token);    
+  // eslint-disable-next-line
   }, [])
 
 
