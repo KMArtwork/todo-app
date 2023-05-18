@@ -6,7 +6,7 @@ function ItemForm (props) {
 
   return(
     <Auth capability='create'>
-  <form onSubmit={props.handleSubmit} style={{width: '10%'}}>
+      <form onSubmit={props.handleSubmit} style={{width: '10%'}}>
 
         <Stack spacing="xl" >
 

@@ -55,7 +55,6 @@ function AuthProvider (props) {
   };
 
   const can = (capability) => {
-    console.log(user.capabilities);
     return user.capabilities?.includes(capability);
   }
 

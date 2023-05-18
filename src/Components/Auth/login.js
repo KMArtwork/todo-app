@@ -17,7 +17,7 @@ function Login (props) {
   return (
     <>
       <When condition={authContext.isLoggedIn}>
-        <button onClick={authContext.logout}>Log Out</button>
+        <button data-testid='logoutButton' onClick={authContext.logout}>Log Out</button>
       </When>
 
       <When condition={!authContext.isLoggedIn}>
@@ -32,7 +32,7 @@ function Login (props) {
             name="password"
             onChange={(event) => setPassword(event.target.value)}
           />
-          <button>Login</button>
+          <button data-testid='loginButton' >Login</button>
         </form>
       </When>
     </>

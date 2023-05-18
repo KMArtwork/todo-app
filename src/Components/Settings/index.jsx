@@ -16,7 +16,8 @@ function SettingsPage() {
     <form onSubmit={handleSubmit}>
       <Switch  
         label='Hide Completed Tasks'
-        id="hideCompleted"
+        id="hideCompletedSwitch"
+        data-testid="hideCompletedSwitch"
         checked={settings.hideCompleted}
         onChange={() => settings.setHideCompleted(!settings.hideCompleted)}
       />
@@ -27,7 +28,8 @@ function SettingsPage() {
         min={1}
         max={10}
         withAsterisk
-        id="itemsPerPage"
+        id="itemsPerPageInput"
+        data-testid="itemsPerPageInput"
         onChange={(event) => {settings.setItemsPerPage(event)}}
       />
 
@@ -35,6 +37,8 @@ function SettingsPage() {
         data={['Assignee', 'Text', 'Difficulty']}
         label='Sort Tasks By'
         withAsterisk
+        id="sortBySelect"
+        data-testid="sortBySelect"
         onChange={(event) => {settings.setSortBy(event.target.value)}}
       />
 
