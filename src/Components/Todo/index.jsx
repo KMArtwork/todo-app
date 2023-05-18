@@ -15,7 +15,6 @@ import { Group, Container, Title } from '@mantine/core';
 
 const Todo = () => {
 
-
   const [defaultValues] = useState({difficulty: 4});
   const [list, setList] = useState([]);
   const [incomplete, setIncomplete] = useState([]);
@@ -27,7 +26,7 @@ const Todo = () => {
     item.id = uuid();
     item.complete = false;
     console.log( JSON.stringify(item));
-    // setList([...list, item]);
+    setList([...list, item]);
 
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`, JSON.stringify(item), {
@@ -68,7 +67,44 @@ const Todo = () => {
     // linter will want 'incomplete' added to dependency array unnecessarily. 
     // disable code used to avoid linter warning 
     // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [list]);  
+  }, [list]);
+  
+  // componentDidMount - fetches tasks from server / database when List component mounts
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`)
+      .then(response => {
+        setList(response.data.results)
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }, [])
+
+  // checks if there are any discrepancies between state and the database, updates accordingly
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`)
+      .then(response => {
+        let dbTasks = [...response.data.results];
+        let foundTasks = 0;
+
+        dbTasks.forEach(dbTask => {
+          list.forEach(task => {
+            if (dbTask._id === task._id) {
+              foundTasks = foundTasks + 1;
+            }
+          })
+        })
+
+        if (foundTasks !== list.length) {
+          setList(response.data.results)
+        } else {
+          return 'Task List is currently up to date'
+        }
+      })
+  }, [list])
+
 
   return (
     <>

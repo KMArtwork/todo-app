@@ -8,6 +8,8 @@ import Auth from "../Auth/auth";
 
 
 function List (props) {
+  console.log(props.data)
+
   const settings = useContext(SettingsContext);
   const [activePage, setActivePage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -41,7 +43,7 @@ function List (props) {
 
   // shows tasks based on if hideCompleted is true or false
   useEffect(() => {
-    settings.hideCompleted ? 
+    settings.hideCompleted ?
     setTaskList(
       props.data?.filter(item => !item.complete).slice(start, end)
     )
@@ -71,28 +73,28 @@ function List (props) {
       })
   }, [])
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`)
-      .then(response => {
-        let dbTasks = [...response.data.results];
-        let foundTasks = 0;
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`)
+  //     .then(response => {
+  //       let dbTasks = [...response.data.results];
+  //       let foundTasks = 0;
 
-        dbTasks.forEach(dbTask => {
-          taskList.forEach(task => {
-            if (dbTask._id === task._id) {
-              foundTasks = foundTasks + 1;
-            }
-          })
-        })
+  //       dbTasks.forEach(dbTask => {
+  //         taskList.forEach(task => {
+  //           if (dbTask._id === task._id) {
+  //             foundTasks = foundTasks + 1;
+  //           }
+  //         })
+  //       })
 
-        if (foundTasks !== taskList.length) {
-          setTaskList(response.data.results)
-        } else {
-          return 'Task List is currently up to date'
-        }
-      })
-  }, [taskList])
+  //       if (foundTasks !== taskList.length) {
+  //         setTaskList(response.data.results)
+  //       } else {
+  //         return 'Task List is currently up to date'
+  //       }
+  //     })
+  // }, [taskList])
 
 
   return(
