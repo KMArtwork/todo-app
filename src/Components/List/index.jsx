@@ -66,16 +66,43 @@ function List (props) {
       .then(response => {
         setTaskList(response.data.results)
       })
+      .catch(error => {
+        console.error(error)
+      })
   }, [])
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`)
+      .then(response => {
+        let dbTasks = [...response.data.results];
+        let foundTasks = 0;
+
+        dbTasks.forEach(dbTask => {
+          taskList.forEach(task => {
+            if (dbTask._id === task._id) {
+              foundTasks = foundTasks + 1;
+            }
+          })
+        })
+
+        if (foundTasks !== taskList.length) {
+          setTaskList(response.data.results)
+        } else {
+          return 'Task List is currently up to date'
+        }
+      })
+  }, [taskList])
 
 
   return(
     <Auth capability='read'>
-      <Container data-testid="listItems" style={{minWidth: '65%'}}>
+      <Container data-testid="listItems" key='listOfItems' style={{minWidth: '65%'}}>
         {taskList?.map(item => {
-          return <ListItem item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
+          // console.log(item._id)
+          return <ListItem key={item._id} item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
         })}
-        <Pagination value={activePage} onChange={setActivePage} total={totalPages} />
+        <Pagination key='itemsPagination' value={activePage} onChange={setActivePage} total={totalPages} />
       </Container>      
     </Auth>
 

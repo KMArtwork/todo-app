@@ -5,8 +5,9 @@ import { Card, Text, Badge, Button, Group, CardSection, Container } from '@manti
 
 function ListItem (props) {
 
+  // console.log(props.item.id)
   return(
-    <Card data-testid='listItem' shadow="sm" radius='md' withBorder>
+    <Card data-testid='listItem' key={`Card_${props.item.id}`} shadow="sm" radius='md' withBorder>
 
       <Card.Section withBorder>
           <Group className="listItemHeader" position="apart" style={{paddingLeft: '1rem'}}>
