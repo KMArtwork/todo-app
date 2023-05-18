@@ -26,7 +26,6 @@ const Todo = () => {
     item.id = uuid();
     item.complete = false;
     console.log( JSON.stringify(item));
-    setList([...list, item]);
 
     axios
       .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`, JSON.stringify(item), {
@@ -36,20 +35,24 @@ const Todo = () => {
       })
       .then(response => {
         console.log(response)
+        setList([...list, item]);
       })
       .catch(error => {
         console.log(error)
       })
+
+      
   }
 
   function deleteItem(id) {
     const items = list.filter( item => item._id !== id );
-    setList(items);
+    
 
     axios
       .delete(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo/${id}`)
       .then(response => {
         console.log(response)
+        setList(items);
       })
       .catch(error => {
         console.log(error)
@@ -59,7 +62,6 @@ const Todo = () => {
   function toggleComplete(id) {
 
     let toggledItem;
-    console.log(list)
 
     const items = list.map( item => {
       if ( item._id === id ) {
@@ -68,13 +70,13 @@ const Todo = () => {
       toggledItem = item;
       return item;
     });
-    console.log(toggledItem)
-    setList(items);
+    
 
     axios
       .put(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo/${id}`, toggledItem)
       .then(response => {
         console.log(response);
+        setList(items);
       })
       .catch(error => {
         console.log(error);
