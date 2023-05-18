@@ -4,6 +4,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import List from '../List';
 
+import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import SettingsPage from '../Settings';
@@ -25,8 +26,21 @@ const Todo = () => {
   function addItem(item) {
     item.id = uuid();
     item.complete = false;
-    console.log(item);
-    setList([...list, item]);
+    console.log( JSON.stringify(item));
+    // setList([...list, item]);
+
+    axios
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`, JSON.stringify(item), {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   function deleteItem(id) {

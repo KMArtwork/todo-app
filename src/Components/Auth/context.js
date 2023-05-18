@@ -77,16 +77,6 @@ function AuthProvider (props) {
         setLoginState(isLoggedIn, token, user, error);
         console.error(error);
       })
-
-    // let foundUser = testUsers[username];
-    // if (foundUser && foundUser.password === password) {
-    //   try {
-    //     validateToken(foundUser.token);
-    //   } catch (e) {
-    //     setLoginState(isLoggedIn, token, user, e);
-    //     console.error(e);
-    //   }
-    // }
   }
 
   const logout = () => {
