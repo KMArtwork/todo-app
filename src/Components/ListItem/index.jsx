@@ -7,7 +7,7 @@ function ListItem (props) {
 
   // console.log(props.item.id)
   return(
-    <Card data-testid='listItem' key={`Card_${props.item.id}`} shadow="sm" radius='md' withBorder>
+    <Card data-testid='listItem' key={`Card_${props.item._id}`} shadow="sm" radius='md' withBorder>
 
       <Card.Section withBorder>
           <Group className="listItemHeader" position="apart" style={{paddingLeft: '1rem'}}>
@@ -20,7 +20,7 @@ function ListItem (props) {
               <Text fw={500}>{props.item.assignee}</Text>            
             </Group>
             <Auth capability='delete'>
-              <Button color="red" size='xs' onClick={() => props.deleteItem(props.item.id)}>X</Button>              
+              <Button color="red" size='xs' onClick={() => props.deleteItem(props.item._id)}>X</Button>              
             </Auth>
           </Group>
       </Card.Section>
@@ -35,7 +35,7 @@ function ListItem (props) {
       <CardSection>
         <Group position='right' >
           <Auth capability='update'>
-            <Button onClick={() => props.toggleComplete(props.item.id)}>Complete</Button>             
+            <Button onClick={() => props.toggleComplete(props.item._id)}>Complete</Button>             
           </Auth>
         </Group>
       </CardSection>

@@ -8,8 +8,6 @@ import Auth from "../Auth/auth";
 
 
 function List (props) {
-  console.log(props.data)
-
   const settings = useContext(SettingsContext);
   const [activePage, setActivePage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -61,47 +59,10 @@ function List (props) {
     setTotalPages(Math.ceil(props.data?.length / settings.itemsPerPage))
   }, [props.data, settings.hideCompleted, settings.itemsPerPage])
 
-  // componentDidMount - fetches tasks from server / database when List component mounts
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`)
-      .then(response => {
-        setTaskList(response.data.results)
-      })
-      .catch(error => {
-        console.error(error)
-      })
-  }, [])
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo`)
-  //     .then(response => {
-  //       let dbTasks = [...response.data.results];
-  //       let foundTasks = 0;
-
-  //       dbTasks.forEach(dbTask => {
-  //         taskList.forEach(task => {
-  //           if (dbTask._id === task._id) {
-  //             foundTasks = foundTasks + 1;
-  //           }
-  //         })
-  //       })
-
-  //       if (foundTasks !== taskList.length) {
-  //         setTaskList(response.data.results)
-  //       } else {
-  //         return 'Task List is currently up to date'
-  //       }
-  //     })
-  // }, [taskList])
-
-
   return(
     <Auth capability='read'>
       <Container data-testid="listItems" key='listOfItems' style={{minWidth: '65%'}}>
         {taskList?.map(item => {
-          // console.log(item._id)
           return <ListItem key={item._id} item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
         })}
         <Pagination key='itemsPagination' value={activePage} onChange={setActivePage} total={totalPages} />

@@ -45,6 +45,15 @@ const Todo = () => {
   function deleteItem(id) {
     const items = list.filter( item => item.id !== id );
     setList(items);
+
+    axios
+      .delete(`${process.env.REACT_APP_SERVER_URL}/api/v1/todo/${id}`)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   function toggleComplete(id) {
