@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 
 import { SettingsContext } from "../../Context/Settings";
 import { Pagination, Container } from '@mantine/core';

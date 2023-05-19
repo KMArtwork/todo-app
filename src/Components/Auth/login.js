@@ -1,6 +1,6 @@
 import React from 'react';
 import {When} from 'react-if';
-import { PasswordInput, TextInput, Button, Group, Flex, Container } from '@mantine/core';
+import { PasswordInput, TextInput, Button } from '@mantine/core';
 
 import { AuthContext } from './context.js';
 
