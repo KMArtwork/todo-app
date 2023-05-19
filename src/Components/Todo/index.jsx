@@ -11,7 +11,7 @@ import SettingsPage from '../Settings';
 import ItemForm from '../ItemForm';
 import Auth from '../Auth/auth'
 
-import { Group, Container, Title } from '@mantine/core';
+import { Group, Container, Title, Center } from '@mantine/core';
 
 const Todo = () => {
 
@@ -138,18 +138,18 @@ const Todo = () => {
           <Routes>
             <Route path='/settings' element={<SettingsPage />} />
             <Route path='/' element={
-              <>
-                <Container data-testid='todoContainer' style={{backgroundColor: "#343a40", color: 'white', padding: '2rem'}}>
-                  <Title order={2} align='center'>
+              <Container style={{minHeight: '75vh'}}>
+                <Center data-testid='todoContainer' style={{backgroundColor: "#343a40", color: 'white', padding: '1.5rem', margin: '2rem 4rem'}}>
+                  <Title order={2} align='left'>
                     To Do List: {incomplete} items pending
                   </Title>
-                </Container>
+                </Center>
                 <Group position='apart' grow style={{margin: '2rem 5rem' }}>
                   <ItemForm handleSubmit={handleSubmit} handleChange={handleChange} incomplete={incomplete} />
 
                   <List data={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
                 </Group>
-              </>
+              </Container>
             } />
           </Routes>
         </BrowserRouter>

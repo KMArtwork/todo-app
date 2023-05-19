@@ -65,7 +65,7 @@ function List (props) {
         {taskList?.map(item => {
           return <ListItem key={item._id} item={item} toggleComplete={props.toggleComplete} deleteItem={props.deleteItem} />
         })}
-        <Pagination key='itemsPagination' value={activePage} onChange={setActivePage} total={totalPages} />
+        <Pagination key='itemsPagination' value={activePage} onChange={setActivePage} total={totalPages} style={{marginTop: '1rem'}} />
       </Container>      
     </Auth>
 

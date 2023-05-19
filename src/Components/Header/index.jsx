@@ -6,11 +6,11 @@ import { Anchor, Group } from "@mantine/core";
 function Header (props) {
 
   return (
-    <header data-testid="todo-header" style={{backgroundColor: 'cyan', color: 'red', padding: '2rem 1rem'}}>
-      <Group position="apart">
+    <header data-testid="todo-header" style={{backgroundColor: '#1c7ed6', padding: '2rem 1rem'}}>
+      <Group position="apart" grow>
         <Group>
-          <Anchor  href="/">Home</Anchor>
-          <Anchor  href="/settings">Settings</Anchor>       
+          <Anchor color="white" size='lg' weight={500} href="/">Home</Anchor>
+          <Anchor color="white" size='lg' weight={500} href="/settings">Settings</Anchor>       
         </Group>
         <Login />
       </Group>
