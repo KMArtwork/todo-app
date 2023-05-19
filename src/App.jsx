@@ -2,6 +2,7 @@ import React from 'react';
 import { MantineProvider } from '@mantine/core';
 
 import SettingsProvider from './Context/Settings';
+import AuthProvider from './Components/Auth/context';
 import Todo from './Components/Todo';
 
 function App () {
@@ -9,7 +10,9 @@ function App () {
     return (
       <MantineProvider>
         <SettingsProvider>
-          <Todo />
+          <AuthProvider>
+            <Todo />
+          </AuthProvider>
         </SettingsProvider>        
       </MantineProvider>
     );
