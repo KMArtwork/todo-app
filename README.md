@@ -1,5 +1,7 @@
 # ToDo App
-This is the Week 7 Project for Code Fellows - Code 401d52. The aim of this project is to better understand React Context API by using Context to establish & save user settings and authenticate a user before accessing the app. 
+This is the Week 7 Project for Code Fellows - Code 401d52. The aim of this project is to better understand React Context API by using Context to establish & save user settings and authenticate a user before accessing the app.
+
+[Deployed ToDo App](https://kmillerdev-todo.netlify.app)
 
 ## Problem Domain
 
