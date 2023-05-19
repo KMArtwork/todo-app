@@ -61,9 +61,12 @@ const Todo = () => {
 
   function toggleComplete(id) {
 
+    console.log(id)
     let toggledItem;
 
     const items = list.map( item => {
+      console.log(item)
+      console.log(id)
       if ( item._id === id ) {
         item.complete = ! item.complete;
       }

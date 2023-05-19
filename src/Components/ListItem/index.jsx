@@ -35,7 +35,7 @@ function ListItem (props) {
       <CardSection>
         <Group position='right' >
           <Auth capability='update'>
-            <Button onClick={() => props.toggleComplete(props.item._id)}>Complete</Button>             
+            <Button onClick={() => {props.toggleComplete(props.item._id); console.log(props.item)}}>Complete</Button>             
           </Auth>
         </Group>
       </CardSection>
