@@ -144,7 +144,7 @@ const Todo = () => {
                     To Do List: {incomplete} items pending
                   </Title>
                 </Center>
-                <Group position='apart' grow style={{margin: '2rem 5rem' }}>
+                <Group position='apart' grow style={{margin: '2rem 5rem', alignItems: 'flex-start'}}>
                   <ItemForm handleSubmit={handleSubmit} handleChange={handleChange} incomplete={incomplete} />
 
                   <List data={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
